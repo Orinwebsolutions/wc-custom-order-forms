@@ -32,9 +32,59 @@
 		addmoreProducts();
 		formvalidate();
 		//validate();
+		multisteps();
 	});
 
-	 function addmoreProducts(){
+	function multisteps(){
+		console.log('multistep');
+		console.log(
+			$('form.multiStepForm').find('.tabs')
+		);
+		let tabs = $('form.multiStepForm').find('.tabs');
+		let btngroup = $('.btn-group');
+		let steps = 0;
+
+		multiStepsNav(tabs, steps, btngroup)
+		btngroup.find('#previous').css('display','none');
+
+		btngroup.find('button').on('click', function(e){
+			if(e.target.id == 'next'){
+				steps++;
+			}else{
+				if(steps>0){
+					steps--;
+				}else{
+					return false;
+				}
+			}
+			multiStepsNav(tabs, steps, btngroup);
+		});
+	}
+	
+	function multiStepsNav(tabs, steps, btngroup){
+		tabs.each(function(i, e){;
+			if(steps != i){
+				$(this).css('display','none');
+			}else{
+				$(this).css('display','block');
+			}
+		});
+		if(tabs.length == (steps+1)){
+			btngroup.find('#next').css('display','none');
+			btngroup.find('input[type=submit]').css('display','inline-block');
+			//btngroup.find('.previous').css('display','inline-block');
+		}else{
+			btngroup.find('input[type=submit]').css('display','none');
+			btngroup.find('#next').css('display','inline-block');
+		}
+		if(steps == 0){
+			btngroup.find('#previous').css('display','none');
+		}else{
+			btngroup.find('#previous').css('display','inline-block');
+		}
+	}
+
+	function addmoreProducts(){
 		var maxField = 10;
 		var addButton = $('.add_button');
 		var fieldHTML = `<div class="input-div">

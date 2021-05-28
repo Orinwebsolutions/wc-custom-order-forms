@@ -45,6 +45,11 @@
     background-color: #007bff !important;
     border-color: #007bff !important;
 }
+.btn-light{
+    color: #fff !important;
+    background-color: #4dd9c9 !important;
+    border-color: #4dd9c9 !important;
+}
 .remove_button{
     color: #fff !important;
     background-color: #721c24 !important;
@@ -55,4 +60,12 @@ button {
 }
 button {
     overflow: visible;
+}
+
+.btn-group{
+    margin-top: 10px;
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
 }
