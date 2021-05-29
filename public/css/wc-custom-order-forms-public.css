@@ -21,7 +21,7 @@
 }
 
 
-.btn {
+/* .btn {
     display: inline-block;
     font-weight: 400;
     color: #212529;
@@ -38,18 +38,18 @@
     line-height: 1.5;
     border-radius: .25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
+} */
 
-.btn-primary {
-    color: #fff !important;
-    background-color: #007bff !important;
+/* .btn-primary {
+    color: #fff ;
+    background-color: #007bff ;
     border-color: #007bff !important;
 }
 .btn-light{
     color: #fff !important;
     background-color: #4dd9c9 !important;
     border-color: #4dd9c9 !important;
-}
+} */
 .remove_button{
     color: #fff !important;
     background-color: #721c24 !important;

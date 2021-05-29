@@ -109,6 +109,25 @@ class Wc_Custom_Order_Forms_Admin {
 
 	public function wc_order_form_buy()
 	{
+
+		$email = ''; $name = ''; $address_1 = ''; $address_2 = ''; $city = ''; $state = ''; $postcode = ''; $userCountry = ''; $phone = '';
+		if(is_user_logged_in()){
+			$id = get_current_user_id();
+			$customer      = new WC_Customer( $id );
+			
+			$email			= $customer->get_email();
+			$name			= $customer->get_first_name().' '.$customer->get_last_name();
+			$username		= $customer->get_username();
+			$address_1  	= $customer->get_billing_address_1();
+			$address_2  	= $customer->get_billing_address_2();
+			$city       	= $customer->get_billing_city();
+			$state      	= $customer->get_billing_state();
+			$postcode   	= $customer->get_billing_postcode();
+			$countrycode	= $customer->get_billing_country();
+			$phone      	= $customer->get_billing_phone();
+			$userCountry	= WC()->countries->countries[$countrycode]; 
+		}
+
 		// $form_buy = '<div class="container">';
 		// if(isset($_GET['success']) && $_GET['success'] == 'true'){
 		// 	$orderid = (isset($_GET['order_id'])) ? $_GET['order_id'] : '';
@@ -197,31 +216,31 @@ class Wc_Custom_Order_Forms_Admin {
 		$form_buy .= '<h2>Customer details</h2>';
 		$form_buy .= '<div class="form-group">';
 		$form_buy .= '<label label-for="name">Name:</label>';
-		$form_buy .= '<input class="form-control" type="input" name="name" required/>';
+		$form_buy .= '<input class="form-control" type="input" name="name" value="'.$name.'" required/>';
 		$form_buy .= '</div>';
 		$form_buy .= '<div class="form-group">';
 		$form_buy .= '<label label-for="contact_number">Contact Number: </label>';
-		$form_buy .= '<input class="form-control" type="input" name="contact_number" required/>';
+		$form_buy .= '<input class="form-control" type="input" name="contact_number" value="'.$phone.'" required/>';
 		$form_buy .= '</div>';
 		$form_buy .= '<div class="form-group">';
 		$form_buy .= '<label label-for="email_address">Email Address: </label>';
-		$form_buy .= '<input class="form-control" type="input" name="email_address" required/>';
+		$form_buy .= '<input class="form-control" type="input" name="email_address" value="'.$email.'" required/>';
 		$form_buy .= '</div>';
 		$form_buy .= '</div>';
 		$form_buy .= '<div class="tabs">';	
 		$form_buy .= '<h2>Shipping details</h2>';	
 		$form_buy .= '<div class="form-group">';		
 		$form_buy .= '<label label-for="shipping_address">Street address: </label>';
-		$form_buy .= '<input class="form-control" type="input" name="shipping_address_01" placeholder="House number and street name" required/>';
-		$form_buy .= '<input class="form-control" type="input" name="shipping_address_02" placeholder="Apartment, suite, unit, etc. (optional)"/>';
+		$form_buy .= '<input class="form-control" type="input" name="shipping_address_01" value="'.$address_1.'" placeholder="House number and street name" required/>';
+		$form_buy .= '<input class="form-control" type="input" name="shipping_address_02" value="'.$address_2.'" placeholder="Apartment, suite, unit, etc. (optional)"/>';
 		$form_buy .= '</div>';
 		$form_buy .= '<div class="form-group">';		
 		$form_buy .= '<label label-for="shipping_address">Town / City : </label>';
-		$form_buy .= '<input class="form-control" type="input" name="shipping_address_city" placeholder="Town / city" />';
+		$form_buy .= '<input class="form-control" type="input" name="shipping_address_city" value="'.$city.'" placeholder="Town / city" />';
 		$form_buy .= '</div>';
 		$form_buy .= '<div class="form-group">';		
 		$form_buy .= '<label label-for="shipping_address">Postcode / ZIP : </label>';
-		$form_buy .= '<input class="form-control" type="input" name="shipping_address_postcode" placeholder="Postcode / ZIP"/>';
+		$form_buy .= '<input class="form-control" type="input" name="shipping_address_postcode" value="'.$postcode.'" placeholder="Postcode / ZIP"/>';
 		$form_buy .= '</div>';
 		$form_buy .= '<div class="form-group">';
 
@@ -230,7 +249,7 @@ class Wc_Custom_Order_Forms_Admin {
 		$form_buy .= '<label label-for="shipping_address">Country / Region : </label>';
 		$form_buy .= '<select class="form-control" name="shipping_address_country">';
 		foreach ($countries as $key => $country) {
-			$form_buy .= '<option>'.$country.'</option>';
+			$form_buy .= '<option '.selected( $userCountry, $country, false ).'>'.$country.'</option>';
 		}
 		$form_buy .= '</select>';
 		$form_buy .= '</div>';
@@ -262,7 +281,7 @@ class Wc_Custom_Order_Forms_Admin {
 		$form_buy .= wp_nonce_field( 'buy_for_me_order' );
 		$form_buy .= '</div>';
 		$form_buy .= '<div class="btn-group">';
-		$form_buy .= '<button type="button" class="btn btn-light" id="previous">Previous</button><button type="button" class="btn btn-light" id="next">Next</button>';
+		$form_buy .= '<button type="button" class="btn btn-primary" id="previous">Previous</button><button type="button" class="btn btn-primary" id="next">Next</button>';
 		$form_buy .= '<input class="btn btn-primary" type="submit" name="Submit request">';
 		$form_buy .= '</div>';
 		$form_buy .= '</form>';
@@ -274,6 +293,24 @@ class Wc_Custom_Order_Forms_Admin {
 
 	public function wc_order_form_ship()
 	{
+		$email = ''; $name = ''; $address_1 = ''; $address_2 = ''; $city = ''; $state = ''; $postcode = ''; $userCountry = ''; $phone = '';
+		if(is_user_logged_in()){
+			$id = get_current_user_id();
+			$customer      = new WC_Customer( $id );
+			
+			$email			= $customer->get_email();
+			$name			= $customer->get_first_name().' '.$customer->get_last_name();
+			$username		= $customer->get_username();
+			$address_1  	= $customer->get_billing_address_1();
+			$address_2  	= $customer->get_billing_address_2();
+			$city       	= $customer->get_billing_city();
+			$state      	= $customer->get_billing_state();
+			$postcode   	= $customer->get_billing_postcode();
+			$countrycode	= $customer->get_billing_country();
+			$phone      	= $customer->get_billing_phone();
+			$userCountry	= WC()->countries->countries[$countrycode]; 
+		}
+		
 		// $form_ship = '<div class="container">';
 		// if(isset($_GET['success']) && $_GET['success'] == 'true'){
 		// 	$orderid = (isset($_GET['order_id'])) ? $_GET['order_id'] : '';
@@ -352,31 +389,31 @@ class Wc_Custom_Order_Forms_Admin {
 		$form_ship .= '<h2>Customer details</h2>';
 		$form_ship .= '<div class="form-group">';
 		$form_ship .= '<label label-for="name">Name: </label>';
-		$form_ship .= '<input class="form-control" type="input" name="name" required/>';
+		$form_ship .= '<input class="form-control" type="input" name="name" value="'.$name.'" required/>';
 		$form_ship .= '</div>';
 		$form_ship .= '<div class="form-group">';
 		$form_ship .= '<label label-for="contact_number">Contact Number: </label>';
-		$form_ship .= '<input class="form-control" type="input" name="contact_number" required/>';
+		$form_ship .= '<input class="form-control" type="input" name="contact_number" value="'.$phone.'" required/>';
 		$form_ship .= '</div>';
 		$form_ship .= '<div class="form-group">';		
 		$form_ship .= '<label label-for="email_address">Email Address: </label>';
-		$form_ship .= '<input class="form-control" type="input" name="email_address" required/>';
+		$form_ship .= '<input class="form-control" type="input" name="email_address" value="'.$email.'" required/>';
 		$form_ship .= '</div>';
 		$form_ship .= '</div>';
 		$form_ship .= '<div class="tabs">';
 		$form_ship .= '<h2>Shipping details</h2>';
 		$form_ship .= '<div class="form-group">';		
 		$form_ship .= '<label label-for="shipping_address">Street address: </label>';
-		$form_ship .= '<input class="form-control" type="input" name="shipping_address_01" placeholder="House number and street name" required/>';
-		$form_ship .= '<input class="form-control" type="input" name="shipping_address_02" placeholder="Apartment, suite, unit, etc. (optional)"/>';
+		$form_ship .= '<input class="form-control" type="input" name="shipping_address_01" value="'.$address_1.'" placeholder="House number and street name" required/>';
+		$form_ship .= '<input class="form-control" type="input" name="shipping_address_02" value="'.$address_2.'" placeholder="Apartment, suite, unit, etc. (optional)"/>';
 		$form_ship .= '</div>';
 		$form_ship .= '<div class="form-group">';		
 		$form_ship .= '<label label-for="shipping_address">Town / City : </label>';
-		$form_ship .= '<input class="form-control" type="input" name="shipping_address_city" placeholder="Town / city"/>';
+		$form_ship .= '<input class="form-control" type="input" name="shipping_address_city" value="'.$city.'" placeholder="Town / city"/>';
 		$form_ship .= '</div>';
 		$form_ship .= '<div class="form-group">';		
 		$form_ship .= '<label label-for="shipping_address">Postcode / ZIP : </label>';
-		$form_ship .= '<input class="form-control" type="input" name="shipping_address_postcode" placeholder="Postcode / ZIP"/>';
+		$form_ship .= '<input class="form-control" type="input" name="shipping_address_postcode" value="'.$postcode.'" placeholder="Postcode / ZIP"/>';
 		$form_ship .= '</div>';
 		$form_ship .= '<div class="form-group">';
 
@@ -385,7 +422,7 @@ class Wc_Custom_Order_Forms_Admin {
 		$form_ship .= '<label label-for="shipping_address">Country / Region : </label>';
 		$form_ship .= '<select class="form-control" name="shipping_address_country">';
 		foreach ($countries as $key => $country) {
-			$form_ship .= '<option>'.$country.'</option>';
+			$form_ship .= '<option '.selected( $userCountry, $country, false ).'>'.$country.'</option>';
 		}
 		$form_ship .= '</select>';
 		$form_ship .= '</div>';
@@ -407,7 +444,7 @@ class Wc_Custom_Order_Forms_Admin {
 		$form_ship .= '<input type="hidden" name="action" value="add_pack_and_ship_order">';
 		$form_ship .= wp_nonce_field( 'pack_and_ship_order' );
 		$form_ship .= '<div class="btn-group">';
-		$form_ship .= '<button type="button" class="btn btn-light" id="previous">Previous</button><button type="button" class="btn btn-light" id="next">Next</button>';
+		$form_ship .= '<button type="button" class="btn btn-primary" id="previous">Previous</button><button type="button" class="btn btn-primary" id="next">Next</button>';
 		$form_ship .= '<input class="btn btn-primary" type="submit" name="Submit request">';
 		$form_ship .= '</div>';		
 		$form_ship .= '</form>';
