@@ -14,3 +14,11 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
+<h1> <?php echo  'Welcome to custom admin page.'; ?> </h1>
+<form method="POST" action="options.php">
+<?php
+settings_fields( 'wc-custom-order-page' );
+do_settings_sections( 'wc-custom-order-page' );
+submit_button();
+?>
+</form>

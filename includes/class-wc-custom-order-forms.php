@@ -158,6 +158,11 @@ class Wc_Custom_Order_Forms {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'register_custom_order_plug_shortcodes' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'custom_order_settings_init' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'custom_order_admin_menu' );
+
+		$this->loader->add_filter( 'woocommerce_account_menu_items', $plugin_admin, 'custom_order_my_account_link' );
+		$this->loader->add_filter( 'woocommerce_get_endpoint_url', $plugin_admin, 'custom_order_hook_endpoint', 10, 4 );
 
 	}
 
