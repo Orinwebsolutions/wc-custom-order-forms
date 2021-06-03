@@ -33,23 +33,24 @@
 		formvalidate();
 		//validate();
 		multisteps();
+		//multistepValidate();
 	});
 
 	function multisteps(){
-		console.log('multistep');
-		console.log(
-			$('form.multiStepForm').find('.tabs')
-		);
 		let tabs = $('form.multiStepForm').find('.tabs');
 		let btngroup = $('.btn-group');
 		let steps = 0;
+		let fValid;
 
 		multiStepsNav(tabs, steps, btngroup)
 		btngroup.find('#previous').css('display','none');
 
 		btngroup.find('button').on('click', function(e){
 			if(e.target.id == 'next'){
-				steps++;
+				fValid = multistepValidate(tabs, steps);
+				if(fValid){
+					steps++;
+				}
 			}else{
 				if(steps>0){
 					steps--;
@@ -152,6 +153,20 @@
 				valid = false;
 			}
 		}
+		return valid;
+	}
+
+	function multistepValidate(tabs, steps){
+		let valid = true;
+		$(tabs[steps]).find('input[type="text"]').each(function(){
+			//console.log($(this).attr('name'));
+			if($(this).val() == '' && ($(this).attr('name') != 'shipping_address_02') ){
+				$(this).focus();
+				valid = false;
+				alert('Please fill all the form fields');
+				return false;
+			}
+		});
 		return valid;
 	}
 
