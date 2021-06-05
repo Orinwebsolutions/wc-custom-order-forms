@@ -167,8 +167,20 @@ class Wc_Custom_Order_Forms_Public {
 		}
 		$array_count = count($items_photo['name']);
 
+		$default_password = wp_generate_password();
+
+		$user = get_user_by('email', $post['email_address']);
+	
+		if (!$user){
+			$user_id = wp_create_user( $post['email_address'], $default_password, $post['email_address'] );
+		}
+		if(!$user_id){
+			$user_id = $user->id;
+		}
+			
         // Now we create the order
-        $order = wc_create_order();
+        //$order = wc_create_order();
+		$order = wc_create_order(array('customer_id' => $user_id));
         
         //Set addresses
         $order->set_address( $product['billing'], 'billing' );
