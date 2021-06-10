@@ -69,3 +69,30 @@ button {
     flex-wrap: nowrap;
     justify-content: space-between;
 }
+.shipping_address{
+    border: 1px solid #aeaeaa;
+    padding: 10px 20px;
+    width: max-content;
+}
+
+
+.hover_txt{
+    background-color: rgba(0,0,0,.8);
+    padding: 3px;
+    border-radius: 12px;
+    position: absolute;
+    margin-top: -2px;
+    width: 100px;
+    cursor: pointer;
+    color: #fff;
+    display: none;
+    text-align: center;
+}
+
+#clk_2_copy_add:hover + .hover_txt{
+    display: block;
+}
+
+#clk_2_copy_add{
+    cursor: pointer;
+}

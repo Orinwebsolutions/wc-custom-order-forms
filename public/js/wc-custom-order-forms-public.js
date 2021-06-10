@@ -32,8 +32,9 @@
 		addmoreProducts();
 		formvalidate();
 		//validate();
-		multisteps();
+		//multisteps();
 		//multistepValidate();
+		clickToCopy();
 	});
 
 	function multisteps(){
@@ -90,8 +91,8 @@
 		var addButton = $('.add_button');
 		var fieldHTML = `<div class="input-div">
 		<div class="form-group"><label label-for="item_photo">Item Photo (upload photo): </label><input type="file" class="form-control-file" name="item_photo[]" required></div>
-		<div class="form-group"><label label-for="item_url">Item URL: </label><input class="form-control" type="input" name="item_url[]"/></div>
-		<div class="form-group"><label label-for="item_price">Item price: </label><input class="form-control" type="input" name="item_price[]"/></div>
+		<div class="form-group"><label label-for="item_url">Item URL: </label><input class="form-control" type="input" name="item_url[]" required/></div>
+		<div class="form-group"><label label-for="item_price">Item price: </label><input class="form-control" type="input" name="item_price[]" required/></div>
 		<div class="date-field-actions"><button class="button-qtymin removeBtn remove_button btn" id="removeBtn" name="removefields">-</button></div>
 						</div>`;
 		var fieldHTML1 = `<div class="input-div">
@@ -104,11 +105,12 @@
 			var formid = $(this).closest('form').attr('id');
 			var divCount = $('#'+formid+' .input-div').length;
 			if(divCount < maxField){
-				if(this.id == 'addBtnbuy'){
-					$(fieldHTML).insertAfter($('#'+formid+' .input-div')[divCount-1]);
-				}else{
-					$(fieldHTML1).insertAfter($('#'+formid+' .input-div')[divCount-1]);
-				}
+				$(fieldHTML).insertAfter($('#'+formid+' .input-div')[divCount-1]);
+				// if(this.id == 'addBtnbuy'){
+				// 	$(fieldHTML).insertAfter($('#'+formid+' .input-div')[divCount-1]);
+				// }else{
+				// 	$(fieldHTML1).insertAfter($('#'+formid+' .input-div')[divCount-1]);
+				// }
 				
 			}
 			if(divCount == 0) {
@@ -145,14 +147,33 @@
 
 	function validate(){
 		let valid = true;
-		console.log($('input[name="item_photo[]"]').length);
-		for (let i = 0; i < $('input[name="item_photo[]"]').length; i++) {
-			if($('input[name="item_photo[]"]')[i].files.length === 0){
-				alert("Attachment Required");
-				$('input[name="item_photo[]"]')[i].focus();
-				valid = false;
-			}
-		}
+		// console.log($('input[name="item_photo[]"]'));
+		// console.log($('input[name="item_url[]"]'));
+		// console.log($('input[name="item_price[]"]'));
+		// for (let i = 0; i < $('input[name="item_photo[]"]').length; i++) {
+		// 	if($('input[name="item_photo[]"]')[i].files.length === 0){
+		// 		alert("Attachment Required");
+		// 		$('input[name="item_photo[]"]')[i].focus();
+		// 		valid = false;
+		// 	}
+		// }
+		let validateFieldsSet = ['input[name="item_photo[]"]','input[name="item_url[]"]','input[name="item_price[]"]']
+		$('.input-div').each(function(){
+			validateFieldsSet.every(element => {
+				$(this).find(element).each(function(){
+					if($(this).val() == '' ){
+						$(this).focus();
+						valid = false;
+						alert('Please fill all the form fields');
+						return false;
+					}
+				});
+				if(valid === false){
+					return;
+				}
+				return true;
+			});
+		})
 		return valid;
 	}
 
@@ -170,5 +191,25 @@
 		return valid;
 	}
 
+	function clickToCopy(){
+		$("#clk_2_copy_add").hover(
+			function(){
+				$('.shipping_address').append('<span class="hover_txt">Click to copy text</span>');
+			},
+			function(){
+				$('.shipping_address').find(".hover_txt").remove();
+			}
+		)
+		$("#clk_2_copy_add").click(function(event){
+			var $tempElement = $("<input>");
+			$("body").append($tempElement);
+			$tempElement.val($(this).text()).select();
+			document.execCommand("Copy");
+			if($('.shipping_address').find(".hover_txt").length){
+				$('.shipping_address').find(".hover_txt").text('Text copied');
+			}
+			$tempElement.remove();
+		});
+	}
 
 })( jQuery );

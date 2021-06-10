@@ -185,6 +185,8 @@ class Wc_Custom_Order_Forms {
 
 		$this->loader->add_action( 'admin_post_add_pack_and_ship_order', $plugin_public, 'add_pack_and_ship_order' );
 		$this->loader->add_action( 'admin_post_nopriv_add_pack_and_ship_order', $plugin_public, 'add_pack_and_ship_order' );
+		
+		$this->loader->add_action( 'woocommerce_account_dashboard', $plugin_public, 'action_woocommerce_account_dashboard' );
 
 	}
 
