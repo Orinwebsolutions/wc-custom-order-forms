@@ -161,40 +161,9 @@ class Wc_Custom_Order_Forms_Public {
 		$items_photo = $files['item_photo'];
 		$special_instruction = sanitize_textarea_field($post['special_instruction']);
 
-
-		// print_r($product);
-		// wp_die();
-		// $product['customer'] = array(
-		// 	'first_name'		=> sanitize_text_field($post['name']),
-		// 	'email'			    => sanitize_text_field($post['email_address']),
-		// 	'phone'   			=> sanitize_text_field($post['contact_number']),
-		// 	'address_1'  		=> sanitize_text_field($post['shipping_address_01']),
-		// 	'address_2'  		=> sanitize_text_field($post['shipping_address_02']), 
-		// 	'city'       		=> sanitize_text_field($post['shipping_address_city']),
-		// 	'postcode'   		=> sanitize_text_field($post['shipping_address_postcode']),
-		// 	'country'    		=> sanitize_text_field($post['shipping_address_country']),
-		// );
-		// $product['billing'] = array(
-		// 	'first_name'		=> sanitize_text_field($post['name']),
-		// 	'email'			    => sanitize_text_field($post['email_address']),
-		// 	'phone'   			=> sanitize_text_field($post['contact_number']),
-		// 	'address_1'  		=> sanitize_text_field($post['shipping_address_01']),
-		// 	'address_2'  		=> sanitize_text_field($post['shipping_address_02']), 
-		// 	'city'       		=> sanitize_text_field($post['shipping_address_city']),
-		// 	'postcode'   		=> sanitize_text_field($post['shipping_address_postcode']),
-		// 	'country'    		=> sanitize_text_field($post['shipping_address_country']),
-		// );
-		// $product['shipping'] = array(
-		// 	'first_name'		=> sanitize_text_field($post['name']),
-		// 	'address_1'  		=> sanitize_text_field($post['shipping_address_01']),
-		// 	'address_2'  		=> sanitize_text_field($post['shipping_address_02']), 
-		// 	'city'       		=> sanitize_text_field($post['shipping_address_city']),
-		// 	'postcode'   		=> sanitize_text_field($post['shipping_address_postcode']),
-		// 	'country'    		=> sanitize_text_field($post['shipping_address_country']),		
-		// );
-
-		$item_url = $post['item_url'];
+		$item_url = isset($post['item_url']) ? $post['item_url'] : '';
 		$item_price = $post['item_price'];
+		$item_description = isset($post['item_description']) ? $post['item_description'] : '';
 
 		foreach ($item_price as $value) {
 			if (!is_numeric($value)) return false;
@@ -241,6 +210,8 @@ class Wc_Custom_Order_Forms_Public {
 
 		if($type == 'buy_for_me_order'){
 			update_post_meta($order->get_id(), 'buy_for_me_order', 'yes');
+		}else if($type == 'ondemand_order'){
+			update_post_meta($order->get_id(), 'ondemand_order', 'yes');
 		}else{
 			update_post_meta($order->get_id(), 'pack_and_ship_order', 'yes');
 		}
@@ -259,7 +230,12 @@ class Wc_Custom_Order_Forms_Public {
 			$item_fee->calculate_taxes( $calculate_tax_for );
 			$order->add_item( $item_fee );
 
-			update_post_meta($order->get_id(), 'product_'.($i+1).'_url', sanitize_text_field($item_url[$i]));
+			if($type == 'ondemand_order'){
+				update_post_meta($order->get_id(), 'product_'.($i+1).'_description', sanitize_text_field($item_description[$i]));
+			}else{
+				update_post_meta($order->get_id(), 'product_'.($i+1).'_url', sanitize_text_field($item_url[$i]));
+
+			}
 
 		}
 
@@ -289,6 +265,22 @@ class Wc_Custom_Order_Forms_Public {
 		}
 
 		$return = $this->createWCOrder($_POST, $_FILES, 'pack_and_ship_order');
+		if($return){
+			$return_url = add_query_arg( array('success' => 'true', 'order_id' => $return), $_SERVER["HTTP_REFERER"] );
+		}else{
+			$return_url = add_query_arg( array('success' => 'false'), $_SERVER["HTTP_REFERER"] );
+		}
+		wp_safe_redirect( $return_url );
+	}
+
+	public function add_ondemand_order()
+	{
+		$nonce = $_POST['_wpnonce'];
+		if ( ! wp_verify_nonce( $nonce, 'ondemand_order' ) ) {
+			exit; // Get out of here, the nonce is rotten!
+		}
+
+		$return = $this->createWCOrder($_POST, $_FILES, 'ondemand_order');
 		if($return){
 			$return_url = add_query_arg( array('success' => 'true', 'order_id' => $return), $_SERVER["HTTP_REFERER"] );
 		}else{

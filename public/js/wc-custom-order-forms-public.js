@@ -90,14 +90,14 @@
 		var maxField = 10;
 		var addButton = $('.add_button');
 		var fieldHTML = `<div class="input-div">
-		<div class="form-group"><label label-for="item_photo">Item Photo (upload photo): </label><input type="file" class="form-control-file" name="item_photo[]" required></div>
-		<div class="form-group"><label label-for="item_url">Item URL: </label><input class="form-control" type="input" name="item_url[]" required/></div>
-		<div class="form-group"><label label-for="item_price">Item price: </label><input class="form-control" type="input" name="item_price[]" required/></div>
-		<div class="date-field-actions"><button class="button-qtymin removeBtn remove_button btn" id="removeBtn" name="removefields">-</button></div>
+		<div class="form-row"><div class="col col-md-12"><label label-for="item_photo">Item Photo (upload photo): </label><input type="file" class="form-control-file" name="item_photo[]" required></div></div>
+		<div class="form-row"><div class="col col-md-12"><label label-for="item_url">Item URL: </label><input class="form-control" type="input" name="item_url[]" required/></div></div>
+		<div class="form-row"><div class="col col-md-12"><label label-for="item_price">Item price: </label><input class="form-control" type="input" name="item_price[]" required/></div></div>
+		<div class="date-field-actions" style="padding-left:15px;"><button class="button-qtymin removeBtn remove_button btn" id="removeBtn" name="removefields">-</button></div>
 						</div>`;
 		var fieldHTML1 = `<div class="input-div">
-						<div class="form-group"><label label-for="item_photo">Item Photo (upload photo):</label> <input type="file" class="form-control-file" name="item_photo[]" required></div>
-						<div class="date-field-actions"><button class="button-qtymin removeBtn remove_button btn" id="removeBtn" name="removefields">-</button></div>
+						<div class="form-row"><div class="col col-md-12"><label label-for="item_photo">Item Photo (upload photo):</label> <input type="file" class="form-control-file" name="item_photo[]" required></div></div>
+						<div class="date-field-actions"  style="padding-left:15px;"><button class="button-qtymin removeBtn remove_button btn" id="removeBtn" name="removefields">-</button></div>
 						</div>`;						
 		
 		$(addButton).on('click', function(event){
