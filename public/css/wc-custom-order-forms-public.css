@@ -2,24 +2,23 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
- .alert-success {
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
 }
 .alert-danger {
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
 }
 .alert {
-    position: relative;
-    padding: .75rem 1.25rem;
-    margin-bottom: 1rem;
-    border: 1px solid transparent;
-    border-radius: .25rem;
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
 }
-
 
 /* .btn {
     display: inline-block;
@@ -50,49 +49,64 @@
     background-color: #4dd9c9 !important;
     border-color: #4dd9c9 !important;
 } */
-.remove_button{
-    color: #fff !important;
-    background-color: #721c24 !important;
-    border-color: #721c24 !important;
+.remove_button {
+  color: #fff !important;
+  background-color: #721c24 !important;
+  border-color: #721c24 !important;
 }
 button {
-    text-transform: none;
+  text-transform: none;
 }
 button {
-    overflow: visible;
+  overflow: visible;
 }
 
-.btn-group{
-    margin-top: 10px;
-    display: flex !important;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+.btn-group {
+  margin-top: 10px;
+  display: flex !important;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 }
-.shipping_address{
-    border: 1px solid #aeaeaa;
-    padding: 10px 20px;
-    width: max-content;
-}
-
-
-.hover_txt{
-    background-color: rgba(0,0,0,.8);
-    padding: 3px;
-    border-radius: 12px;
-    position: absolute;
-    margin-top: -2px;
-    width: 100px;
-    cursor: pointer;
-    color: #fff;
-    display: none;
-    text-align: center;
+.shipping_address {
+  border: 1px solid #aeaeaa;
+  padding: 10px 20px;
+  width: max-content;
+  font-style: normal !important;
+  margin-bottom: 20px !important;
 }
 
-#clk_2_copy_add:hover + .hover_txt{
-    display: block;
+.hover_txt {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 3px;
+  border-radius: 12px;
+  position: absolute;
+  margin-top: -2px;
+  width: 100px;
+  cursor: pointer;
+  color: #fff;
+  display: none;
+  text-align: center;
 }
 
-#clk_2_copy_add{
-    cursor: pointer;
+#clk_2_copy_add:hover + .hover_txt {
+  display: block;
+}
+
+#clk_2_copy_add {
+  cursor: pointer;
+}
+
+.block-element {
+  display: block;
+}
+
+.labeltitle {
+  color: #fd8c40;
+  display: block;
+  float: left;
+  width: 100%;
+}
+.labeltitle:not(:first-child) {
+  margin-top: 15px;
 }
