@@ -293,8 +293,8 @@ class Wc_Custom_Order_Forms_Admin
 		$form_buy .= '<input class="form-control" type="text" name="item_url[]" required/>';
 		$form_buy .= '</div>';
 		$form_buy .= '<div class="col col-md-12">';
-		$form_buy .= '<label label-for="item_price">Item price: </label>';
-		$form_buy .= '<input class="form-control" type="text" name="item_price[]" required/>';
+		$form_buy .= '<label label-for="item_price">Item Price (in USD): </label>';
+		$form_buy .= '<input class="form-control" type="number" name="item_price[]" step="any" required/>';
 		$form_buy .= '</div>';
 		$form_buy .= '<div class="date-field-actions" style="padding-left:15px;">';
 		$form_buy .= '<button type="button" class="btn btn-primary add_button" id="addBtnbuy" name="addfield">Add more products</button>';
@@ -443,8 +443,8 @@ class Wc_Custom_Order_Forms_Admin
 		$form_ship .= '<input class="form-control" type="text" name="item_url[]" required/>';
 		$form_ship .= '</div>';
 		$form_ship .= '<div class="col col-md-12">';
-		$form_ship .= '<label label-for="item_price">Item price: </label>';
-		$form_ship .= '<input class="form-control" type="text" name="item_price[]" required/>';
+		$form_ship .= '<label label-for="item_price">Item Price (in USD): </label>';
+		$form_ship .= '<input class="form-control" type="number" name="item_price[]" step="any" required/>';
 		$form_ship .= '</div>';
 		$form_ship .= '<div class="date-field-actions"  style="padding-left:15px;">';
 		$form_ship .= '<button type="button" class="btn btn-primary add_button" id="addBtnbuy" name="addfield">Add more products</button>';
@@ -591,8 +591,8 @@ class Wc_Custom_Order_Forms_Admin
 		$form_ship .= '<input class="form-control" type="text" name="item_description[]" required/>';
 		$form_ship .= '</div>';
 		$form_ship .= '<div class="col col-md-12">';
-		$form_ship .= '<label label-for="item_price">Item price: </label>';
-		$form_ship .= '<input class="form-control" type="text" name="item_price[]" required/>';
+		$form_ship .= '<label label-for="item_price">Item Price (in USD): </label>';
+		$form_ship .= '<input class="form-control" type="number" name="item_price[]" step="any" required/>';
 		$form_ship .= '</div>';
 		$form_ship .= '<div class="date-field-actions" style="padding-left:15px;">';
 		$form_ship .= '<button type="button" class="btn btn-primary add_button" id="addBtnOnDemand" name="addfield">Add more products</button>';
